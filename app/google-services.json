@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "519370775076",
+    "firebase_url": "https://olegberstasksignin.firebaseio.com",
+    "project_id": "olegberstasksignin",
+    "storage_bucket": "olegberstasksignin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519370775076:android:e259a9fe7eae174e",
+        "android_client_info": {
+          "package_name": "com.example.olegberstasksignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "519370775076-qck6usp3cnp99lf52dr0fo265nt1jtaq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.olegberstasksignin",
+            "certificate_hash": "9dca37604a9bff4acac4a35de636f4e36afb2844"
+          }
+        },
+        {
+          "client_id": "519370775076-g0blo4m9s1vl35nsfbq1ulfb1gho9dgj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCStBH6UoMz7QsxZZeyaA94zBhqogYl_yg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "519370775076-g0blo4m9s1vl35nsfbq1ulfb1gho9dgj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
