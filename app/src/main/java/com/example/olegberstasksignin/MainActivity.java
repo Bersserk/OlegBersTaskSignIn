@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     static final int GOOGLE_SIGN = 123;
     FirebaseAuth mAuth;
     Button btn_login, btn_logout;
-    TextView textView;
+    TextView text;
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
     ImageView image;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.login);
         btn_logout = findViewById(R.id.logout);
-        textView = findViewById(R.id.textView);
+        text = findViewById(R.id.text);
         progressBar = findViewById(R.id.progress_circular);
         image = findViewById(R.id.image);
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
-        btn_login.setOnClickListener(v -> signInGoogle());
+        btn_login.setOnClickListener(v -> SignInGoogle());
         btn_logout.setOnClickListener(v -> Logout());
 
         if (mAuth.getCurrentUser() != null){
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void signInGoogle (){
+    void SignInGoogle (){
         progressBar.setVisibility(View.VISIBLE);
         Intent signIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signIntent, GOOGLE_SIGN);
@@ -108,11 +108,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.d ("TAG", "signin success");
 
                         FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
                     }else{
                         progressBar.setVisibility(View.INVISIBLE);
                         Log.w("TAG", "signin failure", task.getException());
 
-                        Toast.makeText(this, "SignIn Failed!", Toast.LENGTH_SHORT);
+                     //   Toast.makeText(this, "SignIn Failed!", Toast.LENGTH_SHORT);
                         updateUI(null);
                     }
 
@@ -126,18 +127,19 @@ public class MainActivity extends AppCompatActivity {
             String email = user.getEmail();
             String photo = String.valueOf(user.getPhotoUrl());
 
-            textView.append("Info : \n");
-            textView.append(name + "\n");
-            textView.append(email);
+            text.append("Info : \n");
+            text.append(name + "\n");
+            text.append(email);
 
 
-            Picasso.get().load(photo).into(image);
+           //Picasso.get().load(photo).into(image);
             btn_login.setVisibility(View.INVISIBLE);
             btn_logout.setVisibility(View.VISIBLE);
 
         }else {
 
-            textView.setText(getString(R.string.firebase_login));
+            text.setText(getString(R.string.default_web_client_id));
+            //Picasso.get().load(R.drawable)) : null;;
             btn_login.setVisibility(View.VISIBLE);
             btn_logout.setVisibility(View.INVISIBLE);
 
