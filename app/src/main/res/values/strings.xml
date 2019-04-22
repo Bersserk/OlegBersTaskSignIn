@@ -4,6 +4,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="login_with_google">Login with google</string>
     <string name="firebase_login">firebase_login</string>
-    <string name="default_web_client_id">default_web_client_id</string>
+
     <string name="todo">TODO</string>
 </resources>

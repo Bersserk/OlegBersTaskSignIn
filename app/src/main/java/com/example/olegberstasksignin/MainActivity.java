@@ -22,6 +22,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,12 +33,15 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity {
 
     static final int GOOGLE_SIGN = 123;
-    FirebaseAuth mAuth;
-    Button btn_login, btn_logout;
+    private FirebaseAuth mAuth;
+    Button btn_login;
+    Button btn_logout;
     TextView text;
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
     ImageView image;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
 
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.text);
         progressBar = findViewById(R.id.progress_circular);
         image = findViewById(R.id.image);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -71,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
     void SignInGoogle (){
         progressBar.setVisibility(View.VISIBLE);
