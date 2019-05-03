@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
+        text.setText(getString(R.string.text));
+
         btn_login.setOnClickListener(v -> SignInGoogle());
         btn_logout.setOnClickListener(v -> Logout());
 
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.INVISIBLE);
                         Log.w("TAG", "signin failure", task.getException());
 
-                     //   Toast.makeText(this, "SignIn Failed!", Toast.LENGTH_SHORT);
+                        Toast.makeText(this, "SignIn Failed!", Toast.LENGTH_SHORT);
                         updateUI(null);
                     }
 
@@ -135,19 +137,20 @@ public class MainActivity extends AppCompatActivity {
             String email = user.getEmail();
             String photo = String.valueOf(user.getPhotoUrl());
 
-            text.append("Info : \n");
+            text.setText("");
+            text.append("Client info : \n");
             text.append(name + "\n");
             text.append(email);
 
 
-           //Picasso.get().load(photo).into(image);
+            Picasso.get().load(photo).into(image);
             btn_login.setVisibility(View.INVISIBLE);
             btn_logout.setVisibility(View.VISIBLE);
 
         }else {
 
             text.setText(getString(R.string.default_web_client_id));
-            //Picasso.get().load(R.drawable)) : null;;
+            Picasso.get().load(R.drawable.ic_launcher_background);
             btn_login.setVisibility(View.VISIBLE);
             btn_logout.setVisibility(View.INVISIBLE);
 
@@ -159,5 +162,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, task -> updateUI(null));
+        text.setText("");
+
     }
+
 }
