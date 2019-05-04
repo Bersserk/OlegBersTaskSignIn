@@ -32,6 +32,8 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "myLogs";
+
     static final int GOOGLE_SIGN = 123;
     private FirebaseAuth mAuth;
     Button btn_login;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d ("TAG", "метод onCreate");
 
         btn_login = findViewById(R.id.login);
         btn_logout = findViewById(R.id.logout);
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_login.setOnClickListener(v -> SignInGoogle());
         btn_logout.setOnClickListener(v -> Logout());
+        btn_logout.setVisibility(View.INVISIBLE);
 
         if (mAuth.getCurrentUser() != null){
             FirebaseUser user = mAuth.getCurrentUser();
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     void SignInGoogle (){
+
+        Log.d ("TAG", "метод SignInGoogle");
         progressBar.setVisibility(View.VISIBLE);
         Intent signIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signIntent, GOOGLE_SIGN);
@@ -91,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d ("TAG", "метод onActivityResult");
+
         if (requestCode == GOOGLE_SIGN){
             Task<GoogleSignInAccount> task = GoogleSignIn
                     .getSignedInAccountFromIntent(data);
@@ -107,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWitnGoogle(GoogleSignInAccount account) {
-        Log.d ("TAG", "firebaseAuthWithGoogle: " + account.getId());
+
+        Log.d ("TAG", "метод firebaseAuthWithGoogle.  account Id: " + account.getId());
 
         AuthCredential credential = GoogleAuthProvider
                 .getCredential(account.getIdToken(), null);
@@ -131,16 +142,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
+
+        Log.d ("TAG", "метод updateUI");
+
         if (user != null){
+
+            Log.d ("TAG", "метод updateUI - условие if");
 
             String name = user.getDisplayName();
             String email = user.getEmail();
             String photo = String.valueOf(user.getPhotoUrl());
+            String phoneNumber = user.getPhoneNumber();
+
 
             text.setText("");
             text.append("Client info : \n");
-            text.append(name + "\n");
-            text.append(email);
+            text.append("name : " + name + "\n");
+            text.append("phoneNumber : " + phoneNumber + "\n");
+            text.append("email : " + email);
 
 
             Picasso.get().load(photo).into(image);
@@ -149,20 +168,26 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
 
-            text.setText(getString(R.string.default_web_client_id));
+            Log.d ("TAG", "метод updateUI - условие else");
+
             Picasso.get().load(R.drawable.ic_launcher_background);
             btn_login.setVisibility(View.VISIBLE);
             btn_logout.setVisibility(View.INVISIBLE);
+            text.setText("don't leave");
+            Toast.makeText(this, "SignOut successful !", Toast.LENGTH_SHORT);
 
         }
     }
 
     void Logout() {
 
+        Log.d ("TAG", "метод Logout");
+
+
         FirebaseAuth.getInstance().signOut();
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, task -> updateUI(null));
-        text.setText("");
+
 
     }
 
